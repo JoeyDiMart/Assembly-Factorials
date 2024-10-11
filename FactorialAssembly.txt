@@ -1,0 +1,53 @@
+/ Joseph DiMartino
+/ <9.17.24>
+ 
+INPUT  / take in a number 
+STORE N 
+STORE X 
+STORE COUNT  
+SUBT S
+STORE COUNT 
+SUBT S
+STORE COUNT  / count should be 2 less than what the number originally is
+LOAD N 
+SUBT S
+
+loopAdd, LOAD X  / loop where addition happens
+	ADD Z  / Z is the amount you add to X
+    STORE X  / store result in X 
+    LOAD COUNT 
+    SUBT S
+    STORE COUNT  / update the count 
+ 
+	skipcond 400  / check if count is 0 
+	jump loopAdd  / count no 0 keep adding Z to X
+	jump switchNum  / count is 0 so update the numbers 
+
+
+switchNum, LOAD X  / set Z to X's new value 
+	STORE Z
+
+	LOAD N  / Store N in Accumulator 
+	SUBT S  / subtract by 1
+    STORE N   / store the value 
+    STORE COUNT
+    SUBT S
+    STORE COUNT  / again count decreases by 2 to start off 
+    
+    skipcond 400  / if count is 0 by now it's done 
+    jump loopAdd  / count isn't 0 yet so go back to loop 
+    jump outputX
+
+
+outputX, LOAD X  / just go 
+output
+
+
+HALT  / terminate program
+
+N, dec 0   
+X, dec 0  / let X be the final number
+Y, dec 0
+Z, dec 0 
+COUNT, dec 0  / stores # of times the addition needs to occur 
+S, dec 1  / Let S be 1 by default, which is what I subtract by 
